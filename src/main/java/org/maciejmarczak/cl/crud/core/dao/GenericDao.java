@@ -22,8 +22,8 @@ public class GenericDao implements DaoProvider {
         entityManager.persist(entity);
     }
 
-    public void update(Object entity) {
-        entityManager.merge(entity);
+    public <T> T update(T entity) {
+        return entityManager.merge(entity);
     }
 
     public void delete(Object entity) {

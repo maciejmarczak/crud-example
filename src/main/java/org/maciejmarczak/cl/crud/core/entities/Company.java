@@ -2,26 +2,25 @@ package org.maciejmarczak.cl.crud.core.entities;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Data
 @EqualsAndHashCode(exclude = {"employees"})
+@ToString(exclude = {"employees"})
 public class Company {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String name;
     private String address;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "company")
     private Set<Employee> employees;
 
 }

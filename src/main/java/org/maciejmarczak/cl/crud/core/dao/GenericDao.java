@@ -27,7 +27,7 @@ public class GenericDao implements DaoProvider {
     }
 
     public void delete(Object entity) {
-        entityManager.remove(entity);
+        entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
     }
 
     public <T> T findById(Class<T> clazz, long id) {

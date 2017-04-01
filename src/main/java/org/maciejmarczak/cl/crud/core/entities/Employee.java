@@ -12,18 +12,18 @@ import java.util.Set;
 public class Employee {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private long id;
 
     private String firstName;
     private String lastName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "COMPANY_EMPLOYEES")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "COMPANY")
     private Company company;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "EMPLOYEES_PROJECTS",
             joinColumns = @JoinColumn(name = "E_ID", referencedColumnName = "ID"),

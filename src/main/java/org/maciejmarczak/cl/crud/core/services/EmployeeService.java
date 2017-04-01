@@ -36,6 +36,10 @@ public class EmployeeService {
                 .collect(Collectors.toList());
     }
 
+    public Employee getEmployeeById(long id) {
+        return daoProvider.findById(Employee.class, id);
+    }
+
     public void addEmployee(Employee employee) {
         daoProvider.save(employee);
     }

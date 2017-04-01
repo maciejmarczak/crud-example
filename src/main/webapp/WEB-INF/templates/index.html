@@ -1,10 +1,53 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hello!</title>
+    <title>Sample CRUD</title>
 </head>
 <body>
-<h1>Hello from Thymeleaf!</h1>
+<h1>Some ugly UI below</h1>
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Company</th>
+        <th>Project</th>
+    </tr>
+    <tr th:each="employee : ${employees}">
+        <td th:text="${employee.firstName}"></td>
+        <td th:text="${employee.lastName}"></td>
+        <td th:text="${employee.company.name}"></td>
+        <td th:each="project : ${employee.projects}" th:text="${project.name}"></td>
+        <td><a href="#" th:href="@{/employee/delete(id=${employee.id})}">delete</a></td>
+    </tr>
+</table>
+<form style="margin-top: 30px" action="#" th:action="@{/employee/add}"
+      th:object="${employee}" method="post">
+
+    <label for="firstName">First Name:</label>
+    <input type="text" id="firstName" th:field="*{firstName}">
+
+    <label for="lastName">Last Name:</label>
+    <input type="text" id="lastName" th:field="*{lastName}">
+
+    <select th:field="*{company}">
+        <option th:each="c : ${companies}" th:value="${{c}}" th:text="${c.name}"></option>
+    </select>
+
+    <button type="submit">Add Employee</button>
+</form>
+<form style="margin-top: 30px" action="#" th:action="@{/company/add}"
+      th:object="${company}" method="post">
+
+    <label for="companyName">Company Name:</label>
+    <input type="text" id="companyName" th:field="*{name}">
+
+    <label for="companyAddress">Company Address:</label>
+    <input type="text" id="companyAddress" th:field="*{address}">
+
+    <button type="submit">Add Company</button>
+
+</form>
 </body>
 </html>
